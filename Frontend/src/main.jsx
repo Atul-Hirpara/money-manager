@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { AppContextProvider } from './cotext/AppContext.jsx'
 
 createRoot(document.getElementById('root')).render(
- <AppContextProvider>
+  <AppContextProvider>
     <App />
   </AppContextProvider>
 )

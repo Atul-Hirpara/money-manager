@@ -16,12 +16,14 @@ const ProfileImageSelector = ({image, setImage}) => {
         }
     }
 
-    const handleRemoveImage = () => {
+    const handleRemoveImage = (e) => {
+        e.preventDefault();
         setImage(null);
         setPreviewUrl(null);
     }
 
-    const onChooseFile = () => {
+    const onChooseFile = (e) => {
+        e.preventDefault();
         inputRef.current?.click();
     }
 
@@ -34,16 +36,16 @@ const ProfileImageSelector = ({image, setImage}) => {
                 className="hidden" />
             
             {!image ? (
-                <div className="w-20 h-20 flex items-centre justify-centre bg-purple-100 rounded-full relative">
+                <div className="w-20 h-20 flex items-center justify-center bg-purple-100 rounded-full relative">
                     <User className="text-purple-500" size={35}/>
 
                     <button 
                         onClick={onChooseFile}
                         className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1">
-                        <Upload size={15} />
+                        <Upload size={15} className="text-purple-500 cursor-pointer" />
                     </button>
                 </div>
-            ) : (
+            ):(
                 <div className="relative">
                     <img src={previewUrl} alt="profile image" className="w-20 h-20 rounded-full object-cover" />
                     <button 

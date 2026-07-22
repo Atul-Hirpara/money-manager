@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
@@ -8,6 +8,7 @@ import Income from "./pages/Income"
 import Expense from "./pages/Expense"
 import Filter from "./pages/Filter"
 import Login from "./pages/Login"
+import LandingPage from "./pages/LandingPage"
 
 function App() {
  
@@ -16,6 +17,7 @@ function App() {
       <Toaster />
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Root />}/>
           <Route path="/dashboard" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/category" element={<Category />} />
@@ -23,12 +25,21 @@ function App() {
           <Route path="/expense" element={<Expense />} />
           <Route path="/filter" element={<Filter />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<LandingPage />} />
         </Routes>
       </BrowserRouter>
     </>
       
-    
   )
 }
 
-export default App
+const Root = () => {
+  const isAuthenticated = !!localStorage.getItem("token");
+  return isAuthenticated ? (
+    <Navigate to="/dashboard" />
+  ) : (
+    <Navigate to="/home" />
+  );
+}
+
+export default App;

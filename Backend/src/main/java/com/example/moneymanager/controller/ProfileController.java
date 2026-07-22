@@ -29,7 +29,7 @@ public class ProfileController {
         if(isActivated){
             return ResponseEntity.ok("Profile activated successfully");
         }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activation token not found or already usde");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activation token not found or already used");
         }
     }
 
@@ -38,7 +38,7 @@ public class ProfileController {
         try{
             if(!profileService.isAccountActive(authDTO.getEmail())){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
-                        "message" , "Account is not active. Please your account first."
+                        "message" , "Account is not active. Please activate your account first."
                 ));
             }
 
@@ -49,6 +49,13 @@ public class ProfileController {
         }
     }
 
+    @GetMapping("/profile")
+    public ResponseEntity<ProfileDTO> getPublicProfile(){
+        ProfileDTO profileDTO = profileService.getPublicProfile(null);
+        return ResponseEntity.ok(profileDTO);
+    }
+
+    
     @GetMapping("/test")
     public String test(){
         return "test successful";
